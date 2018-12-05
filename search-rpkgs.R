@@ -15,10 +15,10 @@ OBSOLETECHARS <- c("\"", "\'", " ")
 # find files ---------------------------------------------------------------------- #
 files <- c()
 for (s in SUFFIX) {
-  files <-  c(files, base::list.files(pattern = s,
-                                      recursive = TRUE,
-                                      ignore.case = FALSE,
-                                      full.names = FALSE)) }
+  files <-  c(files, list.files(pattern     = s,
+                                recursive   = TRUE,
+                                ignore.case = FALSE,
+                                full.names  = FALSE)) }
 
 if (length(which(files == "installpackages.R")) > 0) {
   files <- files[-which(files == "installpackages.R")]
@@ -27,7 +27,7 @@ if (length(which(files == "installpackages.R")) > 0) {
 # search files for pkgs ----------------------------------------------------------- #
 pkgs <- c()
 for (i in 1:length(files)) {
-  tmpfile <- base::readLines(files[i])
+  tmpfile <- readLines(files[i])
 
   for (identifier in RP_IDENTIFIER) {
     pkgs <- c(pkgs, grep(identifier, tmpfile, value = TRUE))
@@ -35,7 +35,7 @@ for (i in 1:length(files)) {
 }
 
 # cleanup for pkg names ----------------------------------------------------------- #
-pkgs <- base::unique(pkgs)
+pkgs <- unique(pkgs)
 
 # match regular expressions
 match <- c()
@@ -46,11 +46,10 @@ match <- unique(match[!is.na(match)])
 
 # rm OBSOLETECHARS
 for (char in OBSOLETECHARS) {
-  match <- base::gsub(char, "", match)
+  match <- gsub(char, "", match)
 }
 match <- unique(match[!is.na(match)])
 
 # install packages ---------------------------------------------------------------- #
 install.packages(match)
 
-# written by Roman Flury, November 09. 2018
