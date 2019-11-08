@@ -51,5 +51,5 @@ for (char in OBSOLETECHARS) {
 match <- unique(match[!is.na(match)])
 
 # install packages ---------------------------------------------------------------- #
-install.packages(match, lib = "lib/")
+install.packages(match, lib = "lib/", dependencies = TRUE)
 
